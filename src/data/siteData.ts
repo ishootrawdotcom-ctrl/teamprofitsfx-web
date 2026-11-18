@@ -14,7 +14,7 @@ export const SITE_CONFIG = {
   domain: "https://www.teamprofitsfx.com",
   journalUrl: "#ai-journal-preview",
   youtubeUrl: "https://www.youtube.com/@TeamProfitsFX",
-  telegramUrl: "https://t.me/TeamProfitsFX",
+  telegramUrl: "https://t.me/TPEduardoRinconCEO",
   fundedNext: {
     code: "EDUARDO",
     benefit: "110% Reward & Partner Perks",
@@ -23,9 +23,7 @@ export const SITE_CONFIG = {
   checkout: {
     binancePayId: "142152715",
     usdtTrc20Address: "TMXweUjhoxJ6pTSEVVyfwDAjWpxsNqeHwP",
-    stripeLifetimeUrl: "#stripe-lifetime-link",
-    stripeMonthlyUrl: "#stripe-monthly-link",
-    paypalUrl: "#paypal-link",
+    telegramUsername: "TPEduardoRinconCEO",
   },
   promoCode: {
     code: "50%foreva",
@@ -117,14 +115,14 @@ export const FAQS = [
   },
   {
     q: "Do I actually watch you trade live with real market setups?",
-    a: "Yes. Every Tuesday, Wednesday, and Thursday during the New York session Killzones, we trade live together—plus Saturday Zoom breakdowns—so you see exact liquidity sweeps, order blocks, and risk management in real time.",
+    a: "Yes. Every Tuesday, Wednesday, and Thursday during the New York session Killzones, we trade live together so you see exact liquidity sweeps, order blocks, and risk management in real time.",
   },
   {
     q: "What is included with the AI Trade Journal?",
-    a: "Every student gets access to our private terminal inside our private AI Terminal featuring an AI Discipline Coach that tracks your setups, emotions, and execution stats so you stop blowing funded challenges.",
+    a: "Every student gets private access inside our private AI Terminal featuring an AI Discipline Coach that tracks your setups, emotions, and execution stats so you stop blowing funded challenges.",
   },
   {
-    q: "Can I pay with Crypto, USDT, or Binance Pay?",
-    a: "Yes! Our checkout supports instant Crypto / USDT / Binance Pay with zero extra platform markup, as well as Credit/Debit Card and PayPal options.",
+    q: "Can I pay with Crypto, Binance, or Card?",
+    a: "Yes! Our checkout supports instant Binance Pay (0% fee), USDT (TRC20), as well as Visa, Mastercard & Apple Pay via Paybis/MoonPay.",
   },
 ];
