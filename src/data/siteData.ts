@@ -12,7 +12,7 @@ export const SITE_CONFIG = {
   founder: "Eduardo Rincon",
   handle: "@TeamProfitsFX",
   domain: "https://www.teamprofitsfx.com",
-  journalUrl: "https://journal.teamprofitsfx.com",
+  journalUrl: "#ai-journal-preview",
   youtubeUrl: "https://www.youtube.com/@TeamProfitsFX",
   telegramUrl: "https://t.me/TeamProfitsFX",
   fundedNext: {
