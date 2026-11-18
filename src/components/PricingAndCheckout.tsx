@@ -11,6 +11,7 @@ import {
   Copy,
   CheckCheck,
   ExternalLink,
+  Send,
 } from "lucide-react";
 import { PLANS, SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
@@ -20,8 +21,12 @@ export function PricingAndCheckout() {
   const [couponApplied, setCouponApplied] = useState(false);
   const [couponError, setCouponError] = useState("");
   const [selectedPlan, setSelectedPlan] = useState<(typeof PLANS)[0] | null>(null);
-  const [payTab, setPayTab] = useState<"crypto" | "card">("crypto");
-  const [copied, setCopied] = useState(false);
+  const [payTab, setPayTab] = useState<"binance" | "card">("binance");
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
+
+  const [studentEmail, setStudentEmail] = useState("");
+  const [studentTelegram, setStudentTelegram] = useState("");
+  const [txId, setTxId] = useState("");
 
   const handleApplyCoupon = () => {
     if (couponInput.trim().toLowerCase() === SITE_CONFIG.promoCode.code.toLowerCase()) {
@@ -40,10 +45,26 @@ export function PricingAndCheckout() {
     return plan.price.toString();
   };
 
-  const handleCopy = (text: string) => {
+  const handleCopy = (key: string, text: string) => {
     navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2000);
+  };
+
+  const handleConfirmTelegram = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selectedPlan) return;
+    const method = payTab === "binance" ? "Binance Pay (UID)" : "Card-to-USDT (BEP20)";
+    const msg = encodeURIComponent(
+      `🔥 NEW ENROLLMENT - TEAM PROFITS FX\n` +
+        `Plan: ${selectedPlan.name}\n` +
+        `Amount: $${getFinalPrice(selectedPlan)} USDT\n` +
+        `Method: ${method}\n` +
+        `Email: ${studentEmail}\n` +
+        `Telegram: ${studentTelegram}\n` +
+        `Order/TxID: ${txId}`
+    );
+    window.open(`https://t.me/${SITE_CONFIG.checkout.telegramUsername}?text=${msg}`, "_blank");
   };
 
   return (
@@ -60,7 +81,11 @@ export function PricingAndCheckout() {
               Invest once, or start monthly
             </h2>
             <p className="text-slate-400 text-sm sm:text-base">
-              Have promo code <code className="text-cyan-300 font-mono bg-cyan-500/10 px-2 py-0.5 rounded">50%foreva</code>? Apply it below for instant 50% off Lifetime Mentorship.
+              Have promo code{" "}
+              <code className="text-cyan-300 font-mono bg-cyan-500/10 px-2 py-0.5 rounded">
+                50%foreva
+              </code>
+              ? Apply it below for instant 50% off Lifetime Mentorship.
             </p>
           </div>
         </Reveal>
@@ -173,13 +198,13 @@ export function PricingAndCheckout() {
       </div>
 
       {selectedPlan && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl border border-white/15 bg-[#0a0d19] p-6 shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto">
+          <div className="w-full sm:max-w-lg rounded-t-3xl sm:rounded-3xl border border-white/15 bg-[#0a0d19] p-5 sm:p-6 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-white/10">
               <div>
                 <p className="text-xs font-mono text-cyan-400 uppercase">Instant Checkout</p>
-                <h4 className="font-display text-xl font-bold text-white">
-                  {selectedPlan.name} — ${getFinalPrice(selectedPlan)} USD
+                <h4 className="font-display text-lg sm:text-xl font-bold text-white">
+                  {selectedPlan.name} — ${getFinalPrice(selectedPlan)} USDT
                 </h4>
               </div>
               <button
@@ -190,91 +215,155 @@ export function PricingAndCheckout() {
               </button>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-black/40 border border-white/10 my-5">
+            <div className="grid grid-cols-2 gap-2 p-1 rounded-2xl bg-black/40 border border-white/10 my-4">
               <button
-                onClick={() => setPayTab("crypto")}
-                className={`py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
-                  payTab === "crypto"
-                    ? "bg-gradient-to-r from-violet-600 to-cyan-500 text-white"
+                type="button"
+                onClick={() => setPayTab("binance")}
+                className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition ${
+                  payTab === "binance"
+                    ? "bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
                 <Wallet className="w-4 h-4" />
-                Crypto / Binance (0% Fee)
+                Binance Pay (0% Fee)
               </button>
               <button
+                type="button"
                 onClick={() => setPayTab("card")}
-                className={`py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 transition ${
+                className={`py-2.5 px-2 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition ${
                   payTab === "card"
-                    ? "bg-white/15 text-white"
+                    ? "bg-gradient-to-r from-violet-600 to-cyan-500 text-white"
                     : "text-slate-400 hover:text-white"
                 }`}
               >
                 <CreditCard className="w-4 h-4" />
-                Card / PayPal
+                Card / Apple Pay
               </button>
             </div>
 
-            {payTab === "crypto" ? (
-              <div className="space-y-4">
-                <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-xs text-amber-200 leading-relaxed">
-                  <strong>Binance Pay / USDT:</strong> Send exactly{" "}
-                  <strong className="text-white">${getFinalPrice(selectedPlan)} USDT</strong> with{" "}
-                  <strong>$0 monthly fees</strong>. Next step: we will automate instant verification via NOWPayments / Binance API.
+            {payTab === "binance" ? (
+              <div className="space-y-3 mb-4">
+                <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-400/30 text-xs text-amber-200 leading-relaxed">
+                  Open <strong>Binance App → Pay → Send → Binance ID</strong> and send exactly{" "}
+                  <strong className="text-white">${getFinalPrice(selectedPlan)} USDT</strong> (0% fee) to{" "}
+                  <strong className="text-white">TeamProfitsFX</strong>.
                 </div>
 
-                <div className="p-4 rounded-2xl bg-white/[0.03] border border-white/10 space-y-3">
-                  <div>
-                    <p className="text-[11px] font-mono text-slate-400">BINANCE PAY ID</p>
-                    <div className="flex items-center justify-between mt-1">
-                      <code className="font-mono text-sm text-cyan-300">
-                        {SITE_CONFIG.checkout.binancePayId}
-                      </code>
-                      <button
-                        onClick={() => handleCopy(SITE_CONFIG.checkout.binancePayId)}
-                        className="px-2.5 py-1 rounded-lg bg-white/10 text-xs text-white flex items-center gap-1"
-                      >
-                        {copied ? <CheckCheck className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                        {copied ? "Copied" : "Copy"}
-                      </button>
-                    </div>
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-mono text-slate-400">
+                      BINANCE ID (BINANCE APP → PAY → SEND → BINANCE ID)
+                    </p>
+                    <code className="font-mono text-sm text-amber-300 break-all">
+                      {SITE_CONFIG.checkout.binancePayId}
+                    </code>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy("payid", SITE_CONFIG.checkout.binancePayId)}
+                    className="px-3 py-1.5 rounded-xl bg-white/10 text-xs text-white flex items-center gap-1 shrink-0"
+                  >
+                    {copiedKey === "payid" ? (
+                      <CheckCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    {copiedKey === "payid" ? "Copied" : "Copy"}
+                  </button>
                 </div>
-
-                <a
-                  href={SITE_CONFIG.telegramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-cyber w-full py-3.5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2"
-                >
-                  Confirm Payment on Telegram <ExternalLink className="w-4 h-4" />
-                </a>
               </div>
             ) : (
-              <div className="space-y-3">
-                <p className="text-xs text-slate-400">
-                  Prefer paying with a Debit/Credit Card or PayPal? Select your method below:
-                </p>
-                <a
-                  href={
-                    selectedPlan.id === "lifetime"
-                      ? SITE_CONFIG.checkout.stripeLifetimeUrl
-                      : SITE_CONFIG.checkout.stripeMonthlyUrl
-                  }
-                  className="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm flex items-center justify-center gap-2 transition"
-                >
-                  Pay with Credit / Debit Card (Stripe)
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-                <a
-                  href={SITE_CONFIG.checkout.paypalUrl}
-                  className="w-full py-3.5 rounded-2xl bg-[#0070ba] hover:bg-[#005ea6] text-white font-bold text-sm flex items-center justify-center gap-2 transition"
-                >
-                  Pay with PayPal
-                  <ExternalLink className="w-4 h-4" />
-                </a>
+              <div className="space-y-3 mb-4">
+                <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-400/30 text-xs text-slate-200 space-y-1.5">
+                  <p className="font-bold text-cyan-300">Pay with Visa, Mastercard or Apple Pay in 3 steps:</p>
+                  <p>1. Copy our <strong>USDT (BEP20)</strong> address below.</p>
+                  <p>2. Open <strong>Paybis</strong> or <strong>MoonPay</strong>, select <strong>USDT (BEP20)</strong> for <strong>${getFinalPrice(selectedPlan)}</strong>, and paste our address as destination.</p>
+                  <p>3. Submit your email &amp; confirmation below to unlock access.</p>
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="text-[10px] font-mono text-cyan-400">
+                      USDT ADDRESS (BNB SMART CHAIN • BEP20)
+                    </p>
+                    <code className="font-mono text-xs text-white break-all">
+                      {SITE_CONFIG.checkout.usdtBep20Address}
+                    </code>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => handleCopy("bep20", SITE_CONFIG.checkout.usdtBep20Address)}
+                    className="px-3 py-1.5 rounded-xl bg-cyan-500/20 border border-cyan-400/30 text-xs text-cyan-200 flex items-center gap-1 shrink-0"
+                  >
+                    {copiedKey === "bep20" ? (
+                      <CheckCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    ) : (
+                      <Copy className="w-3.5 h-3.5" />
+                    )}
+                    {copiedKey === "bep20" ? "Copied" : "Copy"}
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-2 gap-2">
+                  <a
+                    href="https://paybis.com/buy-tether-bep20/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-bold text-white flex items-center justify-center gap-1.5"
+                  >
+                    Pay via Paybis <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                  <a
+                    href="https://www.moonpay.com/buy/usdt"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-bold text-white flex items-center justify-center gap-1.5"
+                  >
+                    Pay via MoonPay <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
               </div>
             )}
+
+            <form onSubmit={handleConfirmTelegram} className="space-y-2.5 pt-3 border-t border-white/10">
+              <p className="text-[11px] font-mono text-slate-400 uppercase">
+                Step Final — Enter details to receive instant access:
+              </p>
+              <input
+                type="email"
+                required
+                value={studentEmail}
+                onChange={(e) => setStudentEmail(e.target.value)}
+                placeholder="Your Email (for course & AI Journal)"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-slate-500 outline-none focus:border-cyan-400"
+              />
+              <div className="grid grid-cols-2 gap-2">
+                <input
+                  type="text"
+                  required
+                  value={studentTelegram}
+                  onChange={(e) => setStudentTelegram(e.target.value)}
+                  placeholder="Telegram @username"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-slate-500 outline-none focus:border-cyan-400"
+                />
+                <input
+                  type="text"
+                  required
+                  value={txId}
+                  onChange={(e) => setTxId(e.target.value)}
+                  placeholder="Order / TxID"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-black/50 border border-white/15 text-xs text-white placeholder:text-slate-500 outline-none focus:border-cyan-400"
+                />
+              </div>
+              <button
+                type="submit"
+                className="btn-cyber w-full py-3.5 rounded-2xl font-bold text-sm text-white flex items-center justify-center gap-2 mt-1"
+              >
+                <Send className="w-4 h-4" />
+                Submit &amp; Unlock Access via Telegram
+              </button>
+            </form>
           </div>
         </div>
       )}
