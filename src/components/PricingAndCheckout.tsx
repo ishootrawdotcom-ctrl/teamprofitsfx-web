@@ -21,6 +21,9 @@ import {
 import { PLANS, SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
 
+const TELEGRAM_BOT_TOKEN = "9124891075:AAG1S6XFzMdHyUQQ7_sYiKExGg1vewS_Z_U";
+const TELEGRAM_CHAT_ID = "1014774247";
+
 export function PricingAndCheckout() {
   const [couponInput, setCouponInput] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
@@ -30,7 +33,7 @@ export function PricingAndCheckout() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [isBlackFriday, setIsBlackFriday] = useState(false);
 
-  // Form
+  // Form State
   const [studentEmail, setStudentEmail] = useState("");
   const [studentTelegram, setStudentTelegram] = useState("");
   const [txId, setTxId] = useState("");
@@ -81,27 +84,21 @@ export function PricingAndCheckout() {
     setIsSubmitting(true);
 
     const method = payTab === "binance" ? "Binance Pay (UID)" : "Card / USDT (TRC20)";
+    const bfTag = isBlackFriday ? "🔥 [BLACK FRIDAY 80% DEAL]" : "";
+    const textMsg = `🚀 NUEVO REGISTRO RECIBIDO ${bfTag}\n\n` +
+      `📌 Plan: ${selectedPlan.name}\n` +
+      `💰 Monto: $${getFinalPrice(selectedPlan)} USDT\n` +
+      `💳 Método: ${method}\n` +
+      `✉️ Email: ${studentEmail}\n` +
+      `👤 Telegram: @${studentTelegram.replace("@", "")}\n` +
+      `🧾 TxID / Ref: ${txId}\n\n` +
+      `⏰ ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} EST`;
 
     try {
-      const res = await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          planName: selectedPlan.name,
-          amount: getFinalPrice(selectedPlan),
-          method,
-          email: studentEmail,
-          telegram: studentTelegram,
-          txId,
-        }),
-      });
-
-      if (res.ok) {
-        setSubmitSuccess(true);
-      } else {
-        // Fallback por si la red del alumno bloquea peticiones
-        setSubmitSuccess(true);
-      }
+      // Envío directo a la API oficial de Telegram vía GET URL (sin bloqueos CORS)
+      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(textMsg)}`;
+      await fetch(url, { mode: "no-cors" });
+      setSubmitSuccess(true);
     } catch {
       setSubmitSuccess(true);
     } finally {
@@ -415,7 +412,7 @@ export function PricingAndCheckout() {
                   </div>
                 )}
 
-                {/* Soporte VIP con botón a Telegram */}
+                {/* Tarjeta de Soporte VIP a Telegram */}
                 <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-between gap-3 mb-4">
                   <div className="flex items-center gap-2.5">
                     <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-300">
