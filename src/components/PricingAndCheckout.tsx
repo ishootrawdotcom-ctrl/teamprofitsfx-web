@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Check,
   Sparkles,
@@ -12,6 +12,7 @@ import {
   CheckCheck,
   ExternalLink,
   Send,
+  Flame,
 } from "lucide-react";
 import { PLANS, SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
@@ -23,10 +24,25 @@ export function PricingAndCheckout() {
   const [selectedPlan, setSelectedPlan] = useState<(typeof PLANS)[0] | null>(null);
   const [payTab, setPayTab] = useState<"binance" | "card">("binance");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [isBlackFriday, setIsBlackFriday] = useState(false);
 
+  // Form
   const [studentEmail, setStudentEmail] = useState("");
   const [studentTelegram, setStudentTelegram] = useState("");
   const [txId, setTxId] = useState("");
+
+  // Detección automática de Black Friday (Horario NY)
+  useEffect(() => {
+    const checkBF = () => {
+      const now = new Date().getTime();
+      const startTime = new Date(SITE_CONFIG.blackFriday.startNY).getTime();
+      const endTime = new Date(SITE_CONFIG.blackFriday.endNY).getTime();
+      setIsBlackFriday(now >= startTime && now <= endTime);
+    };
+    checkBF();
+    const timer = setInterval(checkBF, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleApplyCoupon = () => {
     if (couponInput.trim().toLowerCase() === SITE_CONFIG.promoCode.code.toLowerCase()) {
@@ -39,6 +55,11 @@ export function PricingAndCheckout() {
   };
 
   const getFinalPrice = (plan: (typeof PLANS)[0]) => {
+    // Si Black Friday está activo y es el plan Lifetime: 80% OFF automático
+    if (isBlackFriday && plan.id === "lifetime") {
+      return (plan.price * (1 - SITE_CONFIG.blackFriday.discountPercent / 100)).toFixed(2);
+    }
+    // Descuento normal 50% con cupón
     if (plan.promoEligible && couponApplied) {
       return (plan.price * (1 - SITE_CONFIG.promoCode.discountPercent / 100)).toFixed(2);
     }
@@ -55,8 +76,9 @@ export function PricingAndCheckout() {
     e.preventDefault();
     if (!selectedPlan) return;
     const method = payTab === "binance" ? "Binance Pay (UID)" : "Card / USDT (TRC20)";
+    const tag = isBlackFriday ? "[BLACK FRIDAY 80% DEAL]" : "";
     const msg = encodeURIComponent(
-      `🔥 NEW ENROLLMENT - TEAM PROFITS FX\n` +
+      `🔥 NEW ENROLLMENT ${tag} - TEAM PROFITS FX\n` +
         `Plan: ${selectedPlan.name}\n` +
         `Amount: $${getFinalPrice(selectedPlan)} USDT\n` +
         `Method: ${method}\n` +
@@ -74,51 +96,60 @@ export function PricingAndCheckout() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 relative z-10">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-10 space-y-3">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-cyan-400">
-              Transparent Pricing • Zero Hidden Fees
-            </span>
+            {isBlackFriday ? (
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.2em] text-red-400 bg-red-950/60 border border-red-500/40 px-3.5 py-1 rounded-full animate-pulse">
+                <Flame className="w-3.5 h-3.5 text-red-500" />
+                BLACK FRIDAY FLASH SALE ACTIVATED • 80% OFF
+              </span>
+            ) : (
+              <span className="text-xs font-mono uppercase tracking-[0.2em] text-cyan-400">
+                Transparent Pricing • Zero Hidden Fees
+              </span>
+            )}
+
             <h2 className="font-display text-3xl sm:text-5xl font-bold text-white">
-              Invest once, or start monthly
+              {isBlackFriday ? "Black Friday Steal — Save 80%" : "Invest once, or start monthly"}
             </h2>
             <p className="text-slate-400 text-sm sm:text-base">
-              Have promo code{" "}
-              <code className="text-cyan-300 font-mono bg-cyan-500/10 px-2 py-0.5 rounded">
-                50%foreva
-              </code>
-              ? Apply it below for instant 50% off Lifetime Mentorship.
+              {isBlackFriday
+                ? "The biggest discount in Team Profits FX history. Get Lifetime Access for just $79.80 until Nov 27 midnight NY time!"
+                : "Have promo code '50%foreva'? Apply it below for instant 50% off Lifetime Mentorship."}
             </p>
           </div>
         </Reveal>
 
-        <Reveal delay={60}>
-          <div className="max-w-md mx-auto mb-12">
-            <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-[#0b0e1c] border border-white/15 focus-within:border-cyan-400/60 transition">
-              <Tag className="w-4 h-4 text-violet-400 ml-3 shrink-0" />
-              <input
-                type="text"
-                value={couponInput}
-                onChange={(e) => setCouponInput(e.target.value)}
-                placeholder="Enter promo code (e.g. 50%foreva)"
-                className="bg-transparent text-sm text-white placeholder:text-slate-500 outline-none w-full py-2 font-mono"
-              />
-              <button
-                type="button"
-                onClick={handleApplyCoupon}
-                className="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold transition active:scale-95 shrink-0"
-              >
-                Apply
-              </button>
+        {/* Si Black Friday NO está activo, mostramos la cajita de cupón normal */}
+        {!isBlackFriday && (
+          <Reveal delay={60}>
+            <div className="max-w-md mx-auto mb-12">
+              <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-[#0b0e1c] border border-white/15 focus-within:border-cyan-400/60 transition">
+                <Tag className="w-4 h-4 text-violet-400 ml-3 shrink-0" />
+                <input
+                  type="text"
+                  value={couponInput}
+                  onChange={(e) => setCouponInput(e.target.value)}
+                  placeholder="Enter promo code (e.g. 50%foreva)"
+                  className="bg-transparent text-sm text-white placeholder:text-slate-500 outline-none w-full py-2 font-mono"
+                />
+                <button
+                  type="button"
+                  onClick={handleApplyCoupon}
+                  className="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold transition active:scale-95 shrink-0"
+                >
+                  Apply
+                </button>
+              </div>
+              {couponApplied && (
+                <p className="text-emerald-400 text-xs font-mono text-center mt-2">
+                  ✓ Code &ldquo;{SITE_CONFIG.promoCode.code}&rdquo; activated! 50% OFF Lifetime Mentorship applied.
+                </p>
+              )}
+              {couponError && (
+                <p className="text-rose-400 text-xs font-mono text-center mt-2">{couponError}</p>
+              )}
             </div>
-            {couponApplied && (
-              <p className="text-emerald-400 text-xs font-mono text-center mt-2">
-                ✓ Code &ldquo;{SITE_CONFIG.promoCode.code}&rdquo; activated! 50% OFF Lifetime Mentorship applied.
-              </p>
-            )}
-            {couponError && (
-              <p className="text-rose-400 text-xs font-mono text-center mt-2">{couponError}</p>
-            )}
-          </div>
-        </Reveal>
+          </Reveal>
+        )}
 
         <div className="grid md:grid-cols-2 gap-6 items-stretch">
           {PLANS.map((plan, idx) => {
@@ -129,7 +160,9 @@ export function PricingAndCheckout() {
               <Reveal key={plan.id} delay={idx * 100}>
                 <div
                   className={`rounded-3xl p-7 h-full flex flex-col justify-between relative ${
-                    isLifetime
+                    isLifetime && isBlackFriday
+                      ? "border-2 border-red-500/80 bg-gradient-to-b from-[#22070c] via-[#0d0714] to-[#070913] shadow-[0_0_60px_-10px_rgba(239,68,68,0.5)]"
+                      : isLifetime
                       ? "border-2 border-violet-500/60 bg-gradient-to-b from-[#11152c] to-[#070913] shadow-[0_0_50px_-12px_rgba(139,92,246,0.35)]"
                       : "carbon-card"
                   }`}
@@ -138,14 +171,16 @@ export function PricingAndCheckout() {
                     <div className="flex items-center justify-between gap-2 mb-4">
                       <span
                         className={`text-[10px] font-mono px-3 py-1 rounded-full tracking-wider font-semibold ${
-                          isLifetime
+                          isLifetime && isBlackFriday
+                            ? "bg-red-600 text-white font-extrabold animate-pulse"
+                            : isLifetime
                             ? "bg-violet-500/20 text-violet-200 border border-violet-400/40"
                             : "bg-white/5 text-slate-300 border border-white/10"
                         }`}
                       >
-                        {plan.badge}
+                        {isLifetime && isBlackFriday ? "🔥 80% OFF • BLACK FRIDAY" : plan.badge}
                       </span>
-                      {isLifetime && (
+                      {isLifetime && !isBlackFriday && (
                         <span className="text-xs font-mono text-rose-400 bg-rose-500/10 border border-rose-500/30 px-2.5 py-0.5 rounded-full">
                           USE &ldquo;50%foreva&rdquo;
                         </span>
@@ -156,12 +191,12 @@ export function PricingAndCheckout() {
                     <p className="text-slate-400 text-sm mt-1">{plan.subtitle}</p>
 
                     <div className="my-6 flex items-baseline gap-3">
-                      {isLifetime && couponApplied && (
+                      {isLifetime && (isBlackFriday || couponApplied) && (
                         <span className="text-2xl font-display text-slate-500 line-through">
                           ${plan.price}
                         </span>
                       )}
-                      <span className="text-5xl font-display font-bold text-white">
+                      <span className={`text-5xl font-display font-bold ${isLifetime && isBlackFriday ? "text-red-400" : "text-white"}`}>
                         ${finalPrice}
                       </span>
                       <span className="text-sm font-mono text-cyan-400 uppercase">
@@ -182,7 +217,9 @@ export function PricingAndCheckout() {
                   <button
                     onClick={() => setSelectedPlan(plan)}
                     className={`w-full py-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 transition active:scale-95 ${
-                      isLifetime
+                      isLifetime && isBlackFriday
+                        ? "bg-gradient-to-r from-red-600 via-rose-600 to-amber-500 text-white shadow-xl shadow-red-600/30 hover:brightness-110"
+                        : isLifetime
                         ? "btn-cyber text-white"
                         : "bg-white/10 hover:bg-white/15 text-white border border-white/15"
                     }`}
