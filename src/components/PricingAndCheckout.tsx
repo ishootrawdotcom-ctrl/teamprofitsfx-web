@@ -21,9 +21,6 @@ import {
 import { PLANS, SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
 
-const TELEGRAM_BOT_TOKEN = "9124891075:AAG1S6XFzMdHyUQQ7_sYiKExGg1vewS_Z_U";
-const TELEGRAM_CHAT_ID = "1014774247";
-
 export function PricingAndCheckout() {
   const [couponInput, setCouponInput] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
@@ -84,20 +81,21 @@ export function PricingAndCheckout() {
     setIsSubmitting(true);
 
     const method = payTab === "binance" ? "Binance Pay (UID)" : "Card / USDT (TRC20)";
-    const bfTag = isBlackFriday ? "🔥 [BLACK FRIDAY 80% DEAL]" : "";
-    const textMsg = `🚀 NUEVO REGISTRO RECIBIDO ${bfTag}\n\n` +
-      `📌 Plan: ${selectedPlan.name}\n` +
-      `💰 Monto: $${getFinalPrice(selectedPlan)} USDT\n` +
-      `💳 Método: ${method}\n` +
-      `✉️ Email: ${studentEmail}\n` +
-      `👤 Telegram: @${studentTelegram.replace("@", "")}\n` +
-      `🧾 TxID / Ref: ${txId}\n\n` +
-      `⏰ ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} EST`;
 
     try {
-      // Envío directo a la API oficial de Telegram vía GET URL (sin bloqueos CORS)
-      const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(textMsg)}`;
-      await fetch(url, { mode: "no-cors" });
+      await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          planName: selectedPlan.name,
+          amount: getFinalPrice(selectedPlan),
+          method,
+          email: studentEmail,
+          telegram: studentTelegram,
+          txId,
+        }),
+      });
+
       setSubmitSuccess(true);
     } catch {
       setSubmitSuccess(true);
