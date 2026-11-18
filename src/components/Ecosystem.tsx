@@ -24,7 +24,7 @@ export function Ecosystem() {
       icon: BookOpen,
       tag: "STRUCTURED LIBRARY",
       title: "Full ICT & SMC Course + eBook",
-      desc: "Step-by-step video curriculum, downloadable SMC eBook, and Saturday live Zoom Q&A breakdowns so no question goes unanswered.",
+      desc: "Step-by-step video curriculum, downloadable SMC eBook",
       accent: "text-violet-400 bg-violet-500/10 border-violet-500/20",
     },
     {
