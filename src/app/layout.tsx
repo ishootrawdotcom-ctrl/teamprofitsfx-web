@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { SITE_CONFIG, FAQS } from "@/data/siteData";
+import { SITE_CONFIG, FAQS, REVIEWS } from "@/data/siteData";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space" });
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "Team Profits FX",
     title: "Team Profits FX — Master ICT & SMC With Live Trading & AI Journal",
     description:
-      "Watch me trade live every Tuesday, Wednesday and Thursday — or go watch Netflix and work 9-5. Lifetime Mentorship one-time payment or $25/month.",
+      "Watch me trade live Tuesdays, Wednesdays and Thursdays — or go watch Netflix and work 9-5. Lifetime Mentorship one-time payment or $25/month.",
     images: [{ url: "/images/eduardo-desk.jpg", width: 1200, height: 630, alt: "Eduardo Rincon Team Profits FX" }],
   },
   twitter: {
@@ -90,6 +90,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           bestRating: "5",
           worstRating: "1",
         },
+        review: REVIEWS.map((r) => ({
+          "@type": "Review",
+          author: { "@type": "Person", name: r.name },
+          datePublished: r.date,
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue: r.rating.toString(),
+            bestRating: "5",
+          },
+          reviewBody: r.text,
+        })),
       },
       {
         "@type": "Course",
