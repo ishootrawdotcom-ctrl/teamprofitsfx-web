@@ -9,13 +9,13 @@ export function FaqAndFooter() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
 
   const socials = [
-    { label: "YouTube", href: SITE_CONFIG.socials.youtube, icon: Youtube },
-    { label: "Telegram", href: SITE_CONFIG.socials.telegramChannel, icon: Send },
-    { label: "Instagram", href: SITE_CONFIG.socials.instagram, icon: Instagram },
-    { label: "TikTok", href: SITE_CONFIG.socials.tiktok, icon: Music2 },
+    { label: "YouTube", href: "https://www.youtube.com/@TeamProfitsFX", icon: Youtube },
+    { label: "Telegram", href: "https://t.me/+dJBq3jsXzpI4Mjkx", icon: Send },
+    { label: "Instagram", href: "https://www.instagram.com/edwardteamprofits/", icon: Instagram },
+    { label: "TikTok", href: "https://www.tiktok.com/@teamprofits?lang=en", icon: Music2 },
     {
       label: "X",
-      href: SITE_CONFIG.socials.x,
+      href: "https://x.com/TPFXCORP",
       customIcon: <span className="font-mono font-bold text-xs">𝕏</span>,
     },
   ];
@@ -78,7 +78,6 @@ export function FaqAndFooter() {
               </div>
             </div>
 
-            {/* Social Icons Hub */}
             <div className="flex items-center gap-2.5">
               {socials.map((s) => {
                 const Icon = s.icon;
