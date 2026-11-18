@@ -17,21 +17,16 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-[#05060b]/80 backdrop-blur-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group">
-            <img
-              src="/images/logo.png"
-              alt="Team Profits FX Logo"
-              className="h-9 w-auto object-contain rounded-md transition-transform group-hover:scale-105"
-            />
-            <div className="flex flex-col leading-none">
-              <span className="font-display font-bold text-sm sm:text-base tracking-wider text-white">
-                TEAM PROFITS <span className="text-cyan-400">FX</span>
-              </span>
-              <span className="text-[10px] font-mono text-violet-400 tracking-widest uppercase">
-                ICT • SMC TERMINAL
-              </span>
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-[#05060b]/85 backdrop-blur-xl">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
+          {/* Logo Protagonista (Sin texto duplicado) */}
+          <a href="#" className="flex items-center group shrink-0">
+            <div className="w-44 h-12 sm:w-56 sm:h-14 overflow-hidden flex items-center">
+              <img
+                src="/images/logo.png"
+                alt="Team Profits FX"
+                className="w-full h-full object-cover object-center scale-110 mix-blend-lighten transition-transform duration-300 group-hover:scale-[1.14]"
+              />
             </div>
           </a>
 
