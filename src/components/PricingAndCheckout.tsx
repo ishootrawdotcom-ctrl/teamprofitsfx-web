@@ -75,33 +75,30 @@ export function PricingAndCheckout() {
     setTimeout(() => setCopiedKey(null), 2000);
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedPlan) return;
     setIsSubmitting(true);
 
     const method = payTab === "binance" ? "Binance Pay (UID)" : "Card / USDT (TRC20)";
+    const bfTag = isBlackFriday ? "🔥 [BLACK FRIDAY 80% DEAL]" : "";
+    const textMsg = `🚀 NUEVO REGISTRO RECIBIDO ${bfTag}\n\n` +
+      `📌 Plan: ${selectedPlan.name}\n` +
+      `💰 Monto: $${getFinalPrice(selectedPlan)} USDT\n` +
+      `💳 Método: ${method}\n` +
+      `✉️ Email: ${studentEmail}\n` +
+      `👤 Telegram: @${studentTelegram.replace("@", "")}\n` +
+      `🧾 TxID / Ref: ${txId}\n\n` +
+      `⏰ ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} EST`;
 
-    try {
-      await fetch("/api/checkout", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          planName: selectedPlan.name,
-          amount: getFinalPrice(selectedPlan),
-          method,
-          email: studentEmail,
-          telegram: studentTelegram,
-          txId,
-        }),
-      });
+    // Abrimos el chat de Telegram con el mensaje redactado para que el alumno lo envíe
+    const telegramUrl = `https://t.me/${SITE_CONFIG.checkout.telegramUsername}?text=${encodeURIComponent(textMsg)}`;
+    window.open(telegramUrl, "_blank");
 
-      setSubmitSuccess(true);
-    } catch {
-      setSubmitSuccess(true);
-    } finally {
+    setTimeout(() => {
       setIsSubmitting(false);
-    }
+      setSubmitSuccess(true);
+    }, 600);
   };
 
   const handleCloseModal = () => {
