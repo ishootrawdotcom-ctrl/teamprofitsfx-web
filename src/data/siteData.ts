@@ -21,8 +21,8 @@ export const SITE_CONFIG = {
     url: "https://fundednext.com/?fpr=eduardo",
   },
   checkout: {
-    binancePayId: "TU_BINANCE_PAY_ID_AQUI",
-    usdtTrc20Address: "TU_BILLETERA_USDT_TRC20_AQUI",
+    binancePayId: "142152715",
+    usdtTrc20Address: "TMXweUjhoxJ6pTSEVVyfwDAjWpxsNqeHwP",
     stripeLifetimeUrl: "#stripe-lifetime-link",
     stripeMonthlyUrl: "#stripe-monthly-link",
     paypalUrl: "#paypal-link",
