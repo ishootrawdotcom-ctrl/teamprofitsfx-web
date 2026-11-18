@@ -1,3 +1,4 @@
+import { BlackFridayBanner } from "@/components/BlackFridayBanner";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Ecosystem } from "@/components/Ecosystem";
@@ -10,6 +11,7 @@ import { JournalModal } from "@/components/JournalModal";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-carbon bg-carbon-grid relative">
+      <BlackFridayBanner />
       <Navbar />
       <Hero />
       <Ecosystem />
