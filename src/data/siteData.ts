@@ -29,6 +29,12 @@ export const SITE_CONFIG = {
     code: "50%foreva",
     discountPercent: 50,
   },
+  blackFriday: {
+    // Horarios oficiales de Nueva York (UTC-5)
+    startNY: "2026-11-19T00:00:00-05:00", // Medianoche de hoy
+    endNY: "2026-11-28T00:00:00-05:00",   // Medianoche al terminar el 27 de Noviembre
+    discountPercent: 80,                 // 80% de descuento
+  },
 };
 
 export const PLANS = [
