@@ -45,7 +45,6 @@ export const PLANS = [
     features: [
       "Complete SMC & ICT Video Course + SMC eBook",
       "Live Trading 3x/Week (Tue, Wed, Thu — NY Killzones)",
-      "Saturday Live Zoom Masterclasses",
       "Proprietary TradingView & MT5 ICT Indicators",
       "Full Access to AI Trade Journal & Discipline Coach",
       "Unlimited 1-on-1 Calls Upon Request",
