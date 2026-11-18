@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Menu, X, Terminal, ArrowUpRight, Sparkles } from "lucide-react";
 import { SITE_CONFIG } from "@/data/siteData";
+import { BlackFridayBanner } from "./BlackFridayBanner";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -17,9 +18,11 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-[#05060b]/85 backdrop-blur-xl">
+      <header className="fixed top-0 inset-x-0 z-50 border-b border-white/10 bg-[#05060b]/90 backdrop-blur-xl">
+        {/* Banner de Black Friday en la parte superior de la barra */}
+        <BlackFridayBanner />
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-20 flex items-center justify-between">
-          {/* Logo Protagonista (Sin texto duplicado) */}
           <a href="#" className="flex items-center group shrink-0">
             <div className="w-44 h-12 sm:w-56 sm:h-14 overflow-hidden flex items-center">
               <img
@@ -112,7 +115,7 @@ export function Navbar() {
           className="flex-[1.5] py-2.5 px-3 rounded-xl btn-cyber text-xs font-bold text-white flex items-center justify-center gap-1.5"
         >
           <Sparkles className="w-3.5 h-3.5" />
-          Get Lifetime ($399)
+          Get Lifetime
         </a>
       </div>
     </>
