@@ -15,12 +15,12 @@ export function Hero() {
               <span>LIVE NY KILLZONES • TUE / WED / THU</span>
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08] text-white">
-              Watch me trade live every{" "}
-              <span className="bg-gradient-to-r from-violet-400 via-cyan-300 to-violet-400 bg-clip-text text-transparent">
-                Tue, Wed & Thu
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1] text-white">
+              Watch me trade live{" "}
+              <span className="text-cyan-400">
+                Tuesdays, Wednesdays and Thursdays
               </span>{" "}
-              <span className="block mt-2 text-slate-300 text-2xl sm:text-4xl lg:text-4xl font-semibold">
+              <span className="block mt-3 text-slate-300 text-2xl sm:text-3xl lg:text-4xl font-semibold">
                 — or go watch Netflix and work 9-5.
               </span>
             </h1>
