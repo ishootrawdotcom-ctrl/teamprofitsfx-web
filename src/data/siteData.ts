@@ -122,7 +122,7 @@ export const FAQS = [
   },
   {
     q: "What is included with the AI Trade Journal?",
-    a: "Every student gets access to our private terminal at journal.teamprofitsfx.com featuring an AI Discipline Coach that tracks your setups, emotions, and execution stats so you stop blowing funded challenges.",
+    a: "Every student gets access to our private terminal inside our private AI Terminal featuring an AI Discipline Coach that tracks your setups, emotions, and execution stats so you stop blowing funded challenges.",
   },
   {
     q: "Can I pay with Crypto, USDT, or Binance Pay?",
