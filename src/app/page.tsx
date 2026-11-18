@@ -5,6 +5,7 @@ import { AboutMentor } from "@/components/AboutMentor";
 import { Reviews } from "@/components/Reviews";
 import { PricingAndCheckout } from "@/components/PricingAndCheckout";
 import { FaqAndFooter } from "@/components/FaqAndFooter";
+import { JournalModal } from "@/components/JournalModal";
 
 export default function HomePage() {
   return (
@@ -16,6 +17,7 @@ export default function HomePage() {
       <Reviews />
       <PricingAndCheckout />
       <FaqAndFooter />
+      <JournalModal />
     </main>
   );
 }
