@@ -54,7 +54,7 @@ export function PricingAndCheckout() {
   const handleConfirmTelegram = (e: React.FormEvent) => {
     e.preventDefault();
     if (!selectedPlan) return;
-    const method = payTab === "binance" ? "Binance Pay (UID)" : "Card-to-USDT (BEP20)";
+    const method = payTab === "binance" ? "Binance Pay (UID)" : "Card / USDT (TRC20)";
     const msg = encodeURIComponent(
       `🔥 NEW ENROLLMENT - TEAM PROFITS FX\n` +
         `Plan: ${selectedPlan.name}\n` +
@@ -238,7 +238,7 @@ export function PricingAndCheckout() {
                 }`}
               >
                 <CreditCard className="w-4 h-4" />
-                Card / Apple Pay
+                Card / USDT TRC20
               </button>
             </div>
 
@@ -276,38 +276,38 @@ export function PricingAndCheckout() {
             ) : (
               <div className="space-y-3 mb-4">
                 <div className="p-3.5 rounded-2xl bg-violet-500/10 border border-violet-400/30 text-xs text-slate-200 space-y-1.5">
-                  <p className="font-bold text-cyan-300">Pay with Visa, Mastercard or Apple Pay in 3 steps:</p>
-                  <p>1. Copy our <strong>USDT (BEP20)</strong> address below.</p>
-                  <p>2. Open <strong>Paybis</strong> or <strong>MoonPay</strong>, select <strong>USDT (BEP20)</strong> for <strong>${getFinalPrice(selectedPlan)}</strong>, and paste our address as destination.</p>
-                  <p>3. Submit your email &amp; confirmation below to unlock access.</p>
+                  <p className="font-bold text-cyan-300">Pay with Visa, Mastercard, Apple Pay or Crypto Wallet:</p>
+                  <p>1. Copy our <strong>USDT (TRC20 — TRON Network)</strong> address below.</p>
+                  <p>2. Send from your wallet, or open <strong>Paybis</strong> / <strong>MoonPay</strong>, select <strong>USDT (TRC20)</strong> for <strong>${getFinalPrice(selectedPlan)}</strong>, and paste our address.</p>
+                  <p>3. Submit your email &amp; TxID below to unlock instant access.</p>
                 </div>
 
                 <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/10 flex items-center justify-between gap-2">
                   <div className="min-w-0">
                     <p className="text-[10px] font-mono text-cyan-400">
-                      USDT ADDRESS (BNB SMART CHAIN • BEP20)
+                      USDT ADDRESS (TRON NETWORK • TRC20)
                     </p>
                     <code className="font-mono text-xs text-white break-all">
-                      {SITE_CONFIG.checkout.usdtBep20Address}
+                      {SITE_CONFIG.checkout.usdtTrc20Address}
                     </code>
                   </div>
                   <button
                     type="button"
-                    onClick={() => handleCopy("bep20", SITE_CONFIG.checkout.usdtBep20Address)}
+                    onClick={() => handleCopy("trc20", SITE_CONFIG.checkout.usdtTrc20Address)}
                     className="px-3 py-1.5 rounded-xl bg-cyan-500/20 border border-cyan-400/30 text-xs text-cyan-200 flex items-center gap-1 shrink-0"
                   >
-                    {copiedKey === "bep20" ? (
+                    {copiedKey === "trc20" ? (
                       <CheckCheck className="w-3.5 h-3.5 text-emerald-400" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
                     )}
-                    {copiedKey === "bep20" ? "Copied" : "Copy"}
+                    {copiedKey === "trc20" ? "Copied" : "Copy"}
                   </button>
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
                   <a
-                    href="https://paybis.com/buy-tether-bep20/"
+                    href="https://paybis.com/buy-tether-trc20/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="py-2.5 px-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-xs font-bold text-white flex items-center justify-center gap-1.5"
