@@ -8,11 +8,9 @@ import {
   ListChecks,
   Lock,
   Sparkles,
-  ArrowUpRight,
   ShieldAlert,
   CheckCircle2,
 } from "lucide-react";
-import { SITE_CONFIG } from "@/data/siteData";
 
 export function JournalModal() {
   const [open, setOpen] = useState(false);
@@ -22,10 +20,7 @@ export function JournalModal() {
     const handleClick = (e: MouseEvent) => {
       const anchor = (e.target as HTMLElement).closest("a");
       if (!anchor) return;
-      if (
-        anchor.href.includes("journal.teamprofitsfx.com") &&
-        !anchor.dataset.directLogin
-      ) {
+      if (anchor.getAttribute("href") === "#ai-journal-preview") {
         e.preventDefault();
         setOpen(true);
       }
@@ -63,7 +58,6 @@ export function JournalModal() {
   return (
     <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4">
       <div className="w-full sm:max-w-2xl rounded-t-3xl sm:rounded-3xl border border-violet-500/30 bg-[#080b16] shadow-[0_0_60px_-15px_rgba(139,92,246,0.45)] overflow-hidden">
-        {/* Header */}
         <div className="px-5 py-4 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-cyan-500/15 border border-cyan-400/30 text-cyan-300">
@@ -79,7 +73,7 @@ export function JournalModal() {
                 </span>
               </div>
               <p className="text-[11px] font-mono text-slate-400">
-                Interactive Terminal Preview • journal.teamprofitsfx.com
+                Private Student Terminal • Interactive Preview
               </p>
             </div>
           </div>
@@ -92,7 +86,6 @@ export function JournalModal() {
           </button>
         </div>
 
-        {/* Interactive Tabs */}
         <div className="px-5 pt-4">
           <div className="grid grid-cols-3 gap-1.5 p-1 rounded-2xl bg-black/50 border border-white/10">
             <button
@@ -128,28 +121,21 @@ export function JournalModal() {
           </div>
         </div>
 
-        {/* Dynamic Terminal Body */}
         <div className="p-5 space-y-4">
           {tab === "coach" && (
             <div className="space-y-3">
               <div className="grid grid-cols-3 gap-2.5">
                 <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/10">
                   <p className="text-[10px] font-mono text-slate-400">WIN RATE</p>
-                  <p className="font-display text-xl sm:text-2xl font-bold text-emerald-400">
-                    68.4%
-                  </p>
+                  <p className="font-display text-xl sm:text-2xl font-bold text-emerald-400">68.4%</p>
                 </div>
                 <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/10">
                   <p className="text-[10px] font-mono text-slate-400">PROFIT FACTOR</p>
-                  <p className="font-display text-xl sm:text-2xl font-bold text-cyan-300">
-                    2.41
-                  </p>
+                  <p className="font-display text-xl sm:text-2xl font-bold text-cyan-300">2.41</p>
                 </div>
                 <div className="p-3 rounded-2xl bg-white/[0.03] border border-white/10">
                   <p className="text-[10px] font-mono text-slate-400">DISCIPLINE</p>
-                  <p className="font-display text-xl sm:text-2xl font-bold text-violet-300">
-                    96/100
-                  </p>
+                  <p className="font-display text-xl sm:text-2xl font-bold text-violet-300">96/100</p>
                 </div>
               </div>
 
@@ -178,9 +164,7 @@ export function JournalModal() {
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-display font-bold text-white text-sm">
-                        {t.pair}
-                      </span>
+                      <span className="font-display font-bold text-white text-sm">{t.pair}</span>
                       <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-violet-500/20 text-violet-200">
                         {t.session}
                       </span>
@@ -188,9 +172,7 @@ export function JournalModal() {
                     <p className="text-xs text-slate-400 mt-0.5">{t.setup}</p>
                   </div>
                   <div className="text-right">
-                    <span className="font-mono font-bold text-emerald-400 text-sm">
-                      {t.rr}
-                    </span>
+                    <span className="font-mono font-bold text-emerald-400 text-sm">{t.rr}</span>
                     <p className="text-[10px] font-mono text-emerald-300/80 flex items-center justify-end gap-1">
                       <CheckCircle2 className="w-3 h-3" /> {t.status}
                     </p>
@@ -245,8 +227,7 @@ export function JournalModal() {
             </div>
           )}
 
-          {/* CTAs */}
-          <div className="pt-2 space-y-2.5">
+          <div className="pt-2">
             <a
               href="#pricing"
               onClick={() => setOpen(false)}
@@ -255,19 +236,9 @@ export function JournalModal() {
               <Sparkles className="w-4 h-4" />
               Unlock Full AI Journal Access (Join Mentorship)
             </a>
-
-            <div className="text-center">
-              <a
-                href={SITE_CONFIG.journalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                data-direct-login="true"
-                className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-cyan-300 transition py-1"
-              >
-                Already a paid student? Login to Terminal
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </a>
-            </div>
+            <p className="text-[11px] text-center text-slate-500 mt-2.5">
+              Private access link is sent automatically upon enrollment.
+            </p>
           </div>
         </div>
       </div>
