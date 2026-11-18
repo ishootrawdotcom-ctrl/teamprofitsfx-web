@@ -84,24 +84,4 @@ export const PLANS = [
 export const REVIEWS: ReviewItem[] = [
   {
     name: "C. George",
-    initials: "CG",
-    date: "2024-09-11",
-    rating: 5,
-    text: "BEST COURSE IVE BEEN IN BY FAR! 🔥 I've been through many trading courses over the years, but this one is by far the best.",
-    color: "bg-emerald-500/20 text-emerald-300 border-emerald-500/30",
-  },
-  {
-    name: "Nigel Namaseb",
-    initials: "NN",
-    date: "2024-09-08",
-    rating: 5,
-    text: "One of the best mentors around !",
-    color: "bg-amber-500/20 text-amber-300 border-amber-500/30",
-  },
-  {
-    name: "Charlene Inderjeeth",
-    initials: "CI",
-    date: "2024-09-07",
-    rating: 5,
-    text: "Eduardo is a great mentor! His educational trading videos are easy to understand and in-depth. He's always available to assist with any questions and supplies daily guidance. My understanding of ICT has improved a lot since I joined. His mentorship program is totally worth it!",
-    color: "bg
+    init
