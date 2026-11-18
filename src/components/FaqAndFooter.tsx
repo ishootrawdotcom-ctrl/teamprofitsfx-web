@@ -1,12 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Terminal } from "lucide-react";
+import { ChevronDown, Terminal, Youtube, Send, Instagram, Music2 } from "lucide-react";
 import { FAQS, SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
 
 export function FaqAndFooter() {
   const [openIdx, setOpenIdx] = useState<number | null>(0);
+
+  const socials = [
+    { label: "YouTube", href: SITE_CONFIG.socials.youtube, icon: Youtube },
+    { label: "Telegram", href: SITE_CONFIG.socials.telegramChannel, icon: Send },
+    { label: "Instagram", href: SITE_CONFIG.socials.instagram, icon: Instagram },
+    { label: "TikTok", href: SITE_CONFIG.socials.tiktok, icon: Music2 },
+    {
+      label: "X",
+      href: SITE_CONFIG.socials.x,
+      customIcon: <span className="font-mono font-bold text-xs">𝕏</span>,
+    },
+  ];
 
   return (
     <>
@@ -54,34 +66,54 @@ export function FaqAndFooter() {
       </section>
 
       <footer className="border-t border-white/10 bg-[#030408] pt-12 pb-24 md:pb-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <img src="/images/logo.png" alt="Team Profits FX" className="h-8 w-auto rounded" />
-            <div>
-              <p className="font-display font-bold text-white text-sm">TEAM PROFITS FX</p>
-              <p className="text-xs text-slate-500">
-                © {new Date().getFullYear()} Eduardo Rincon. All rights reserved.
-              </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 space-y-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="flex items-center gap-3">
+              <img src="/images/logo.png" alt="Team Profits FX" className="h-8 w-auto rounded mix-blend-lighten" />
+              <div>
+                <p className="font-display font-bold text-white text-sm">TEAM PROFITS FX</p>
+                <p className="text-xs text-slate-500">
+                  © {new Date().getFullYear()} Eduardo Rincon. All rights reserved.
+                </p>
+              </div>
+            </div>
+
+            {/* Social Icons Hub */}
+            <div className="flex items-center gap-2.5">
+              {socials.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                    className="w-9 h-9 rounded-xl border border-white/10 bg-white/5 flex items-center justify-center text-slate-400 hover:text-white hover:border-cyan-400/50 hover:bg-cyan-500/10 transition active:scale-95"
+                  >
+                    {Icon ? <Icon className="w-4 h-4" /> : s.customIcon}
+                  </a>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
+              <a href="#ecosystem" className="hover:text-white">Ecosystem</a>
+              <a href="#reviews" className="hover:text-white">Reviews</a>
+              <a href="#pricing" className="hover:text-white">Pricing</a>
+              <a
+                href={SITE_CONFIG.journalUrl}
+                className="text-cyan-400 flex items-center gap-1 hover:text-cyan-300"
+              >
+                <Terminal className="w-3.5 h-3.5" /> AI Journal
+              </a>
             </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-slate-400">
-            <a href="#ecosystem" className="hover:text-white">Ecosystem</a>
-            <a href="#reviews" className="hover:text-white">Reviews</a>
-            <a href="#pricing" className="hover:text-white">Pricing</a>
-            <a
-              href={SITE_CONFIG.journalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-cyan-400 flex items-center gap-1 hover:text-cyan-300"
-            >
-              <Terminal className="w-3.5 h-3.5" /> AI Journal
-            </a>
-          </div>
+          <p className="max-w-4xl mx-auto text-center text-[11px] text-slate-600 leading-relaxed pt-4 border-t border-white/5">
+            Risk Disclaimer: Trading forex, indices, and futures carries a high level of risk and may not be suitable for all investors. Past live performance does not guarantee future results. Team Profits FX provides educational mentorship only.
+          </p>
         </div>
-        <p className="max-w-4xl mx-auto px-4 text-center text-[11px] text-slate-600 mt-8 leading-relaxed">
-          Risk Disclaimer: Trading forex, indices, and futures carries a high level of risk and may not be suitable for all investors. Past live performance does not guarantee future results. Team Profits FX provides educational mentorship only.
-        </p>
       </footer>
     </>
   );
