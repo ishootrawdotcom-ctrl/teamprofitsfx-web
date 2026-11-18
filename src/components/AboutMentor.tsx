@@ -1,4 +1,4 @@
-import { CheckCircle2, Youtube } from "lucide-react";
+import { CheckCircle2, Youtube, Send, Instagram, Music2 } from "lucide-react";
 import { SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
 
@@ -7,6 +7,42 @@ export function AboutMentor() {
     "5+ years live experience in ICT & Smart Money Concepts",
     "580+ free educational trading videos & 18.9K+ YouTube subscribers",
     "No monthly subscription traps — lifetime mentorship built for real growth",
+  ];
+
+  const socialPills = [
+    {
+      label: "YouTube",
+      href: SITE_CONFIG.socials.youtube,
+      icon: Youtube,
+      color: "hover:border-red-500/40 hover:text-red-400 bg-red-500/10 text-red-300",
+    },
+    {
+      label: "Telegram",
+      href: SITE_CONFIG.socials.telegramChannel,
+      icon: Send,
+      color: "hover:border-cyan-500/40 hover:text-cyan-400 bg-cyan-500/10 text-cyan-300",
+    },
+    {
+      label: "Instagram",
+      href: SITE_CONFIG.socials.instagram,
+      icon: Instagram,
+      color: "hover:border-pink-500/40 hover:text-pink-400 bg-pink-500/10 text-pink-300",
+    },
+    {
+      label: "TikTok",
+      href: SITE_CONFIG.socials.tiktok,
+      icon: Music2,
+      color: "hover:border-teal-500/40 hover:text-teal-400 bg-teal-500/10 text-teal-300",
+    },
+    {
+      label: "X (Twitter)",
+      href: SITE_CONFIG.socials.x,
+      // Icono X estilizado
+      customIcon: (
+        <span className="font-mono font-bold text-xs">𝕏</span>
+      ),
+      color: "hover:border-white/40 hover:text-white bg-white/5 text-slate-300",
+    },
   ];
 
   return (
@@ -45,16 +81,28 @@ export function AboutMentor() {
               ))}
             </div>
 
-            <div className="pt-3">
-              <a
-                href={SITE_CONFIG.youtubeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 px-5 py-3 rounded-2xl border border-red-500/30 bg-red-500/10 text-red-300 font-semibold text-sm hover:bg-red-500/20 transition active:scale-95"
-              >
-                <Youtube className="w-5 h-5 text-red-400" />
-                Watch 580+ Free Videos on YouTube
-              </a>
+            {/* Social Media Showcase */}
+            <div className="pt-4 space-y-3">
+              <p className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+                Official Channels &amp; Community
+              </p>
+              <div className="flex flex-wrap items-center gap-2.5">
+                {socialPills.map((s) => {
+                  const Icon = s.icon;
+                  return (
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-white/10 text-xs font-semibold transition active:scale-95 ${s.color}`}
+                    >
+                      {Icon ? <Icon className="w-4 h-4" /> : s.customIcon}
+                      <span>{s.label}</span>
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </Reveal>
         </div>
