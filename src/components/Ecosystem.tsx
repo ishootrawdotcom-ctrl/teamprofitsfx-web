@@ -38,7 +38,7 @@ export function Ecosystem() {
       icon: BrainCircuit,
       tag: "PRIVATE TERMINAL",
       title: "AI Trade Journal & Discipline Coach",
-      desc: "Direct access to journal.teamprofitsfx.com. Log trades effortlessly and let our AI Coach diagnose emotional leaks and boost your win rate.",
+      desc: "Direct access to our private AI Terminal. Log trades effortlessly and let our AI Coach diagnose emotional leaks and boost your win rate.",
       accent: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
       link: SITE_CONFIG.journalUrl,
     },
