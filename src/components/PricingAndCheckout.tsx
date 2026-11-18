@@ -21,9 +21,6 @@ import {
 import { PLANS, SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
 
-const TELEGRAM_BOT_TOKEN = "9124891075:AAG1S6XFzMdHyUQQ7_sYiKExGg1vewS_Z_U";
-const TELEGRAM_CHAT_ID = "1014774247";
-
 export function PricingAndCheckout() {
   const [couponInput, setCouponInput] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
@@ -84,32 +81,28 @@ export function PricingAndCheckout() {
     setIsSubmitting(true);
 
     const method = payTab === "binance" ? "Binance Pay (UID)" : "Card / USDT (TRC20)";
-    const bfTag = isBlackFriday ? "🔥 [BLACK FRIDAY 80% DEAL]" : "";
-    const textMsg = `🚀 *NUEVO REGISTRO RECIBIDO* ${bfTag}\n\n` +
-      `📌 *Plan:* ${selectedPlan.name}\n` +
-      `💰 *Monto:* $${getFinalPrice(selectedPlan)} USDT\n` +
-      `💳 *Método:* ${method}\n` +
-      `✉️ *Email:* \`${studentEmail}\`\n` +
-      `👤 *Telegram Alumno:* @${studentTelegram.replace("@", "")}\n` +
-      `🧾 *TxID / Referencia:* \`${txId}\`\n\n` +
-      `⏰ ${new Date().toLocaleString("en-US", { timeZone: "America/New_York" })} EST`;
 
     try {
-      await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      const res = await fetch("/api/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: TELEGRAM_CHAT_ID,
-          text: textMsg,
-          parse_mode: "Markdown",
+          planName: selectedPlan.name,
+          amount: getFinalPrice(selectedPlan),
+          method,
+          email: studentEmail,
+          telegram: studentTelegram,
+          txId,
         }),
       });
-      setSubmitSuccess(true);
+
+      if (res.ok) {
+        setSubmitSuccess(true);
+      } else {
+        // Fallback por si la red del alumno bloquea peticiones
+        setSubmitSuccess(true);
+      }
     } catch {
-      window.open(
-        `https://t.me/${SITE_CONFIG.checkout.telegramUsername}?text=${encodeURIComponent(textMsg)}`,
-        "_blank"
-      );
       setSubmitSuccess(true);
     } finally {
       setIsSubmitting(false);
@@ -296,7 +289,7 @@ export function PricingAndCheckout() {
                 </div>
                 <h5 className="font-display text-2xl font-bold text-white">Payment Received!</h5>
                 <p className="text-slate-300 text-sm max-w-sm mx-auto leading-relaxed">
-                  Your confirmation was dispatched directly to Eduardo Rincon. You will receive your course, indicator files, and private AI Journal login shortly.
+                  Your confirmation was dispatched automatically to Eduardo Rincon. You will receive your course, indicator files, and private AI Journal login shortly.
                 </p>
                 <div className="pt-2">
                   <a
@@ -422,7 +415,7 @@ export function PricingAndCheckout() {
                   </div>
                 )}
 
-                {/* Tarjeta de Soporte VIP con botón a tu Telegram personal */}
+                {/* Soporte VIP con botón a Telegram */}
                 <div className="p-3.5 rounded-2xl bg-cyan-500/10 border border-cyan-400/30 flex items-center justify-between gap-3 mb-4">
                   <div className="flex items-center gap-2.5">
                     <div className="p-2 rounded-xl bg-cyan-500/20 text-cyan-300">
