@@ -1,5 +1,4 @@
 import { CheckCircle2, Youtube, Send, Instagram, Music2 } from "lucide-react";
-import { SITE_CONFIG } from "@/data/siteData";
 import { Reveal } from "./Reveal";
 
 export function AboutMentor() {
@@ -9,38 +8,35 @@ export function AboutMentor() {
     "No monthly subscription traps — lifetime mentorship built for real growth",
   ];
 
-  const socialPills = [
+  const socialLinks = [
     {
       label: "YouTube",
-      href: SITE_CONFIG.socials.youtube,
+      href: "https://www.youtube.com/@TeamProfitsFX",
       icon: Youtube,
       color: "hover:border-red-500/40 hover:text-red-400 bg-red-500/10 text-red-300",
     },
     {
       label: "Telegram",
-      href: SITE_CONFIG.socials.telegramChannel,
+      href: "https://t.me/+dJBq3jsXzpI4Mjkx",
       icon: Send,
       color: "hover:border-cyan-500/40 hover:text-cyan-400 bg-cyan-500/10 text-cyan-300",
     },
     {
       label: "Instagram",
-      href: SITE_CONFIG.socials.instagram,
+      href: "https://www.instagram.com/edwardteamprofits/",
       icon: Instagram,
       color: "hover:border-pink-500/40 hover:text-pink-400 bg-pink-500/10 text-pink-300",
     },
     {
       label: "TikTok",
-      href: SITE_CONFIG.socials.tiktok,
+      href: "https://www.tiktok.com/@teamprofits?lang=en",
       icon: Music2,
       color: "hover:border-teal-500/40 hover:text-teal-400 bg-teal-500/10 text-teal-300",
     },
     {
-      label: "X (Twitter)",
-      href: SITE_CONFIG.socials.x,
-      // Icono X estilizado
-      customIcon: (
-        <span className="font-mono font-bold text-xs">𝕏</span>
-      ),
+      label: "X",
+      href: "https://x.com/TPFXCORP",
+      customIcon: <span className="font-mono font-bold text-xs">𝕏</span>,
       color: "hover:border-white/40 hover:text-white bg-white/5 text-slate-300",
     },
   ];
@@ -81,13 +77,13 @@ export function AboutMentor() {
               ))}
             </div>
 
-            {/* Social Media Showcase */}
+            {/* Social Channels Showcase */}
             <div className="pt-4 space-y-3">
               <p className="text-xs font-mono text-slate-400 uppercase tracking-wider">
                 Official Channels &amp; Community
               </p>
               <div className="flex flex-wrap items-center gap-2.5">
-                {socialPills.map((s) => {
+                {socialLinks.map((s) => {
                   const Icon = s.icon;
                   return (
                     <a
