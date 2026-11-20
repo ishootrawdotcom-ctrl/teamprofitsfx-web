@@ -1,4 +1,4 @@
-import { Award, ExternalLink, ShieldCheck, Zap } from "lucide-react";
+import { ExternalLink, ShieldCheck, Zap, Flame } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 export function PartnersSection() {
@@ -6,80 +6,91 @@ export function PartnersSection() {
     {
       name: "FundedNext",
       tagline: "Official Prop Firm Partner",
-      desc: "Scale your capital with one of the most trusted prop firms in the industry. Use our exclusive VIP partner reward code upon checkout.",
+      desc: "Use code EDUARDO to claim 110% Reward on your funded challenge checkout.",
       badge: "110% REWARD PERK",
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
       logo: "/images/fundednext-logo.jpg",
-      accent: "from-violet-600/20 via-cyan-500/10 to-transparent border-cyan-500/30 text-cyan-300",
-      btnBg: "bg-gradient-to-r from-violet-600 to-cyan-500 text-white hover:brightness-110",
+      // Efecto neón parpadeante / pulso para FundedNext
+      cardStyle: "border-cyan-500/50 bg-gradient-to-b from-[#0e1628] via-[#080b16] to-[#05060b] shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] hover:shadow-[0_0_60px_-5px_rgba(34,211,238,0.5)]",
+      btnBg: "bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-600 text-white hover:brightness-120 shadow-lg shadow-cyan-500/25",
     },
     {
       name: "FundYourFX",
       tagline: "Prime Team Profits Partnership",
-      desc: "Get instant funding and trade your strategy without strict time limits. Join through our direct prime partnership link below.",
+      desc: "Get only the best deals through our direct prime partnership link below.",
       badge: "PRIME PARTNER",
       code: "TEAMPROFITS",
       link: "https://fundyourfx.com/prime-teamprofits",
       logo: "/images/fundyourfx-logo.jpg",
-      accent: "from-blue-600/20 via-indigo-500/10 to-transparent border-blue-500/30 text-blue-300",
-      btnBg: "bg-gradient-to-r from-blue-600 to-indigo-500 text-white hover:brightness-110",
+      // Efecto neón azul eléctrico para FundYourFX
+      cardStyle: "border-blue-500/50 bg-gradient-to-b from-[#0a1128] via-[#070b17] to-[#05060b] shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_-5px_rgba(59,130,246,0.5)]",
+      btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white hover:brightness-120 shadow-lg shadow-blue-500/25",
     },
   ];
 
   return (
-    <section className="py-16 md:py-24 relative overflow-hidden">
+    <section className="py-20 md:py-28 relative overflow-hidden">
+      {/* Brillos de fondo ambientales */}
+      <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-violet-600/10 blur-[150px]" />
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         <Reveal>
-          <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-            <span className="text-xs font-mono uppercase tracking-[0.2em] text-cyan-400">
+          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-[0.2em] text-cyan-400 bg-cyan-500/10 border border-cyan-400/30 px-3.5 py-1 rounded-full">
+              <Flame className="w-3.5 h-3.5 text-cyan-400 animate-pulse" />
               Verified Ecosystem Partners
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
+            <h2 className="font-display text-3xl sm:text-5xl font-bold text-white tracking-tight">
               Funded Trading Partners
             </h2>
-            <p className="text-slate-400 text-sm sm:text-base">
-              Scale your approved ICT &amp; SMC strategies with our official broker &amp; prop firm partners.
+            <p className="text-slate-400 text-base sm:text-lg">
+              Scale your approved ICT &amp; SMC strategies with our official prop firm partners.
             </p>
           </div>
         </Reveal>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        {/* Cuadros grandes, llamativos con animación de levitación */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {partners.map((p, idx) => (
-            <Reveal key={p.name} delay={idx * 100}>
-              <div className={`carbon-card rounded-3xl p-7 h-full flex flex-col justify-between border bg-gradient-to-br ${p.accent} relative group`}>
+            <Reveal key={p.name} delay={idx * 120}>
+              <div
+                className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative group ${p.cardStyle}`}
+              >
                 <div>
-                  {/* Cabecera: Logo Grande a lo ancho + Badge */}
+                  {/* Cabecera con Logo Grande y Brillante */}
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="w-44 sm:w-48 h-12 flex items-center justify-start overflow-hidden">
+                    <div className="w-48 sm:w-56 h-14 bg-black/90 border border-white/15 rounded-2xl p-2 flex items-center justify-start overflow-hidden shadow-2xl">
                       <img
                         src={p.logo}
                         alt={`${p.name} Logo`}
-                        className="w-full h-full object-contain object-left mix-blend-screen filter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-transform duration-300 group-hover:scale-105"
+                        className="max-h-full max-w-full w-auto object-contain object-left filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
                       />
                     </div>
-                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300 tracking-wider shrink-0">
+                    <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono font-bold text-cyan-300 tracking-wider shrink-0 shadow-md">
                       {p.badge}
                     </span>
                   </div>
 
-                  <p className="text-xs font-mono text-violet-400 mb-2">{p.tagline}</p>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-6">
+                  <p className="text-xs font-mono uppercase tracking-wider text-violet-400 mb-2 font-semibold">
+                    {p.tagline}
+                  </p>
+                  <p className="text-slate-200 text-base sm:text-lg font-medium leading-relaxed mb-8">
                     {p.desc}
                   </p>
                 </div>
 
                 <div className="space-y-4">
                   {p.code && (
-                    <div className="flex items-center justify-between p-3 rounded-2xl bg-black/40 border border-white/10">
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-black/70 border border-white/15 shadow-inner">
                       <div>
-                        <p className="text-[10px] font-mono text-slate-400">EXCLUSIVE COUPON</p>
-                        <p className="font-mono font-bold text-cyan-300 text-sm tracking-widest">
+                        <p className="text-[10px] font-mono text-slate-400 tracking-wider">EXCLUSIVE COUPON</p>
+                        <p className="font-mono font-bold text-cyan-300 text-base sm:text-lg tracking-widest mt-0.5">
                           {p.code}
                         </p>
                       </div>
-                      <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1">
-                        <ShieldCheck className="w-3.5 h-3.5" /> Verified
+                      <span className="text-xs font-mono text-emerald-400 flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-xl">
+                        <ShieldCheck className="w-4 h-4" /> Verified
                       </span>
                     </div>
                   )}
@@ -88,11 +99,11 @@ export function PartnersSection() {
                     href={p.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`w-full py-3.5 rounded-2xl font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition active:scale-95 shadow-lg ${p.btnBg}`}
+                    className={`w-full py-4 rounded-2xl font-extrabold text-sm sm:text-base flex items-center justify-center gap-2.5 transition active:scale-95 ${p.btnBg}`}
                   >
-                    <Zap className="w-4 h-4" />
+                    <Zap className="w-4 h-4 fill-white" />
                     Access {p.name} Partner Link
-                    <ExternalLink className="w-3.5 h-3.5" />
+                    <ExternalLink className="w-4 h-4" />
                   </a>
                 </div>
               </div>
