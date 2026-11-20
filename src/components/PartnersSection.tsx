@@ -54,13 +54,13 @@ export function PartnersSection() {
                 className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative group ${p.cardStyle}`}
               >
                 <div>
-                  {/* Cabecera con Logo Ampliado y Zoom para eliminar espacios vacíos */}
+                  {/* Cabecera: Logo sin caja restrictiva, libre y brillante */}
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="w-48 sm:w-56 h-14 bg-black border border-white/20 rounded-2xl p-1.5 flex items-center justify-center overflow-hidden shadow-2xl">
+                    <div className="h-12 sm:h-14 flex items-center justify-start overflow-visible">
                       <img
                         src={p.logo}
                         alt={`${p.name} Logo`}
-                        className="w-full h-full object-cover scale-[1.7] transform transition-transform duration-300 group-hover:scale-[1.85]"
+                        className="h-full w-auto object-contain object-left mix-blend-screen filter drop-shadow-[0_0_12px_rgba(255,255,255,0.35)] transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono font-bold text-cyan-300 tracking-wider shrink-0 shadow-md">
