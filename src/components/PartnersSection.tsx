@@ -49,13 +49,13 @@ export function PartnersSection() {
             <Reveal key={p.name} delay={idx * 100}>
               <div className={`carbon-card rounded-3xl p-7 h-full flex flex-col justify-between border bg-gradient-to-br ${p.accent} relative group`}>
                 <div>
+                  {/* Cabecera: Logo Grande a lo ancho + Badge */}
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    {/* Logo Grande, Brillante y Destacado */}
-                    <div className="h-16 flex items-center justify-start overflow-hidden">
+                    <div className="w-44 sm:w-48 h-12 flex items-center justify-start overflow-hidden">
                       <img
                         src={p.logo}
                         alt={`${p.name} Logo`}
-                        className="h-full w-auto object-contain filter drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] transition-transform duration-300 group-hover:scale-105"
+                        className="w-full h-full object-contain object-left mix-blend-screen filter drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
                     <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300 tracking-wider shrink-0">
