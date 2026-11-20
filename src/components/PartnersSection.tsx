@@ -10,7 +10,7 @@ export function PartnersSection() {
       badge: "110% REWARD PERK",
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
-      watermark: "/images/fundednext-logo2.jpg",
+      watermark: "/images/fundednext-logo2.png", // <--- Apunta al nuevo .png transparente
       cardStyle: "border-cyan-500/50 bg-gradient-to-b from-[#0e1628] via-[#080b16] to-[#05060b] shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] hover:shadow-[0_0_60px_-5px_rgba(34,211,238,0.5)]",
       btnBg: "bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-600 text-white hover:brightness-120 shadow-lg shadow-cyan-500/25",
       logoComponent: (
@@ -63,8 +63,8 @@ export function PartnersSection() {
               <div
                 className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group ${p.cardStyle}`}
               >
-                {/* Marca de agua de fondo con mezcla transparente perfecta */}
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-500 mix-blend-screen">
+                {/* Marca de agua de fondo optimizada y con más visibilidad (0.13) */}
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.13] group-hover:opacity-[0.18] transition-opacity duration-500 mix-blend-screen">
                   <img
                     src={p.watermark}
                     alt=""
