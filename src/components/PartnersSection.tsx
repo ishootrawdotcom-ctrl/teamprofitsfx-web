@@ -63,12 +63,12 @@ export function PartnersSection() {
               <div
                 className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group ${p.cardStyle}`}
               >
-                {/* Marca de agua de fondo con transparencia */}
-                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.06] group-hover:opacity-[0.10] transition-opacity duration-500">
+                {/* Marca de agua de fondo con mezcla transparente perfecta */}
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.05] group-hover:opacity-[0.09] transition-opacity duration-500 mix-blend-screen">
                   <img
                     src={p.watermark}
                     alt=""
-                    className="w-4/5 h-4/5 object-contain filter grayscale invert"
+                    className="w-4/5 h-4/5 object-contain filter contrast-200"
                   />
                 </div>
 
