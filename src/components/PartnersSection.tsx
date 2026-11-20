@@ -10,6 +10,7 @@ export function PartnersSection() {
       badge: "110% REWARD PERK",
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
+      logo: "/images/fundednext-logo.png",
       accent: "from-violet-600/20 via-cyan-500/10 to-transparent border-cyan-500/30 text-cyan-300",
       btnBg: "bg-gradient-to-r from-violet-600 to-cyan-500 text-white hover:brightness-110",
     },
@@ -20,6 +21,7 @@ export function PartnersSection() {
       badge: "PRIME PARTNER",
       code: "TEAMPROFITS",
       link: "https://fundyourfx.com/prime-teamprofits",
+      logo: "/images/fundyourfx-logo.png",
       accent: "from-blue-600/20 via-indigo-500/10 to-transparent border-blue-500/30 text-blue-300",
       btnBg: "bg-gradient-to-r from-blue-600 to-indigo-500 text-white hover:brightness-110",
     },
@@ -48,8 +50,17 @@ export function PartnersSection() {
               <div className={`carbon-card rounded-3xl p-7 h-full flex flex-col justify-between border bg-gradient-to-br ${p.accent} relative group`}>
                 <div>
                   <div className="flex items-center justify-between mb-6">
-                    <div className="p-3 rounded-2xl bg-white/5 border border-white/10 text-white">
-                      <Award className="w-6 h-6 text-cyan-400" />
+                    {/* Logo de la Prop Firm */}
+                    <div className="h-10 px-3 py-1.5 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={p.logo}
+                        alt={`${p.name} Logo`}
+                        className="max-h-full w-auto object-contain mix-blend-lighten"
+                        onError={(e) => {
+                          // Fallback si la imagen tarda o no carga
+                          (e.currentTarget as HTMLElement).style.display = "none";
+                        }}
+                      />
                     </div>
                     <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300 tracking-wider">
                       {p.badge}
