@@ -11,7 +11,6 @@ export function PartnersSection() {
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
       logo: "/images/fundednext-logo.jpg",
-      // Efecto neón parpadeante / pulso para FundedNext
       cardStyle: "border-cyan-500/50 bg-gradient-to-b from-[#0e1628] via-[#080b16] to-[#05060b] shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] hover:shadow-[0_0_60px_-5px_rgba(34,211,238,0.5)]",
       btnBg: "bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-600 text-white hover:brightness-120 shadow-lg shadow-cyan-500/25",
     },
@@ -23,7 +22,6 @@ export function PartnersSection() {
       code: "TEAMPROFITS",
       link: "https://fundyourfx.com/prime-teamprofits",
       logo: "/images/fundyourfx-logo.jpg",
-      // Efecto neón azul eléctrico para FundYourFX
       cardStyle: "border-blue-500/50 bg-gradient-to-b from-[#0a1128] via-[#070b17] to-[#05060b] shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_-5px_rgba(59,130,246,0.5)]",
       btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white hover:brightness-120 shadow-lg shadow-blue-500/25",
     },
@@ -31,7 +29,6 @@ export function PartnersSection() {
 
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Brillos de fondo ambientales */}
       <div className="pointer-events-none absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-violet-600/10 blur-[150px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
@@ -50,7 +47,6 @@ export function PartnersSection() {
           </div>
         </Reveal>
 
-        {/* Cuadros grandes, llamativos con animación de levitación */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           {partners.map((p, idx) => (
             <Reveal key={p.name} delay={idx * 120}>
@@ -58,13 +54,13 @@ export function PartnersSection() {
                 className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative group ${p.cardStyle}`}
               >
                 <div>
-                  {/* Cabecera con Logo Grande y Brillante */}
+                  {/* Cabecera con Logo Ampliado y Zoom para eliminar espacios vacíos */}
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="w-48 sm:w-56 h-14 bg-black/90 border border-white/15 rounded-2xl p-2 flex items-center justify-start overflow-hidden shadow-2xl">
+                    <div className="w-48 sm:w-56 h-14 bg-black border border-white/20 rounded-2xl p-1.5 flex items-center justify-center overflow-hidden shadow-2xl">
                       <img
                         src={p.logo}
                         alt={`${p.name} Logo`}
-                        className="max-h-full max-w-full w-auto object-contain object-left filter drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
+                        className="w-full h-full object-cover scale-[1.7] transform transition-transform duration-300 group-hover:scale-[1.85]"
                       />
                     </div>
                     <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono font-bold text-cyan-300 tracking-wider shrink-0 shadow-md">
