@@ -49,24 +49,21 @@ export function PartnersSection() {
             <Reveal key={p.name} delay={idx * 100}>
               <div className={`carbon-card rounded-3xl p-7 h-full flex flex-col justify-between border bg-gradient-to-br ${p.accent} relative group`}>
                 <div>
-                  <div className="flex items-center justify-between mb-6">
-                    {/* Contenedor de Tamaño Fijo y Simetría Perfecta */}
-                    <div className="w-36 h-11 px-3 py-1.5 rounded-2xl bg-black/70 border border-white/10 flex items-center justify-center overflow-hidden shadow-inner">
+                  <div className="flex items-center justify-between gap-4 mb-6">
+                    {/* Logo Grande, Brillante y Destacado */}
+                    <div className="h-16 flex items-center justify-start overflow-hidden">
                       <img
                         src={p.logo}
                         alt={`${p.name} Logo`}
-                        className="max-h-7 max-w-full w-auto object-contain mix-blend-screen"
+                        className="h-full w-auto object-contain filter drop-shadow-[0_0_12px_rgba(255,255,255,0.25)] transition-transform duration-300 group-hover:scale-105"
                       />
                     </div>
-                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300 tracking-wider">
+                    <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono text-cyan-300 tracking-wider shrink-0">
                       {p.badge}
                     </span>
                   </div>
 
-                  <h3 className="font-display text-2xl font-bold text-white mb-1">
-                    {p.name}
-                  </h3>
-                  <p className="text-xs font-mono text-violet-400 mb-3">{p.tagline}</p>
+                  <p className="text-xs font-mono text-violet-400 mb-2">{p.tagline}</p>
                   <p className="text-slate-300 text-sm leading-relaxed mb-6">
                     {p.desc}
                   </p>
