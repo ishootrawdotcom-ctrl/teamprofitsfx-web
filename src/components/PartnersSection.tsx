@@ -10,9 +10,14 @@ export function PartnersSection() {
       badge: "110% REWARD PERK",
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
-      logo: "/images/fundednext-logo.jpg",
       cardStyle: "border-cyan-500/50 bg-gradient-to-b from-[#0e1628] via-[#080b16] to-[#05060b] shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] hover:shadow-[0_0_60px_-5px_rgba(34,211,238,0.5)]",
       btnBg: "bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-600 text-white hover:brightness-120 shadow-lg shadow-cyan-500/25",
+      // Logo tipográfico de alta gama para FundedNext
+      logoComponent: (
+        <span className="font-display font-black tracking-wider text-2xl sm:text-3xl text-white filter drop-shadow-[0_0_10px_rgba(255,255,255,0.6)]">
+          FUNDED<span className="text-cyan-400">NEXT</span>
+        </span>
+      ),
     },
     {
       name: "FundYourFX",
@@ -21,9 +26,14 @@ export function PartnersSection() {
       badge: "PRIME PARTNER",
       code: "TEAMPROFITS",
       link: "https://fundyourfx.com/prime-teamprofits",
-      logo: "/images/fundyourfx-logo.jpg",
       cardStyle: "border-blue-500/50 bg-gradient-to-b from-[#0a1128] via-[#070b17] to-[#05060b] shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_-5px_rgba(59,130,246,0.5)]",
       btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white hover:brightness-120 shadow-lg shadow-blue-500/25",
+      // Logo tipográfico de alta gama para FundYourFX
+      logoComponent: (
+        <span className="font-display font-bold tracking-tight text-2xl sm:text-3xl text-white filter drop-shadow-[0_0_10px_rgba(96,165,250,0.6)] flex items-center gap-1.5">
+          <span className="text-blue-400 font-black">✦</span> Fund<span className="text-blue-400 font-black">Your</span>FX
+        </span>
+      ),
     },
   ];
 
@@ -54,14 +64,10 @@ export function PartnersSection() {
                 className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative group ${p.cardStyle}`}
               >
                 <div>
-                  {/* Cabecera: Logo sin caja restrictiva, libre y brillante */}
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="h-12 sm:h-14 flex items-center justify-start overflow-visible">
-                      <img
-                        src={p.logo}
-                        alt={`${p.name} Logo`}
-                        className="h-full w-auto object-contain object-left mix-blend-screen filter drop-shadow-[0_0_12px_rgba(255,255,255,0.35)] transition-transform duration-300 group-hover:scale-105"
-                      />
+                    {/* Logo tipográfico grande, limpio y simétrico */}
+                    <div className="py-2 flex items-center justify-start overflow-visible">
+                      {p.logoComponent}
                     </div>
                     <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono font-bold text-cyan-300 tracking-wider shrink-0 shadow-md">
                       {p.badge}
