@@ -2,6 +2,7 @@ import { BlackFridayBanner } from "@/components/BlackFridayBanner";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
 import { Ecosystem } from "@/components/Ecosystem";
+import { PartnersSection } from "@/components/PartnersSection";
 import { AboutMentor } from "@/components/AboutMentor";
 import { Reviews } from "@/components/Reviews";
 import { PricingAndCheckout } from "@/components/PricingAndCheckout";
@@ -15,6 +16,7 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <Ecosystem />
+      <PartnersSection />
       <AboutMentor />
       <Reviews />
       <PricingAndCheckout />
