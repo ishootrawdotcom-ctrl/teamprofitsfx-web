@@ -10,19 +10,10 @@ export function PartnersSection() {
       badge: "110% REWARD PERK",
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
+      logo: "/images/fundednext-logo.jpg",
+      watermark: "/images/fundednext-logo2.jpg",
       cardStyle: "border-cyan-500/50 bg-gradient-to-b from-[#0e1628] via-[#080b16] to-[#05060b] shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] hover:shadow-[0_0_60px_-5px_rgba(34,211,238,0.5)]",
       btnBg: "bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-600 text-white hover:brightness-120 shadow-lg shadow-cyan-500/25",
-      // Logo corporativo limpio en alta definición
-      logoGraphic: (
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-black text-lg">
-            N
-          </div>
-          <span className="font-display font-black tracking-wider text-2xl sm:text-3xl text-white">
-            FUNDED<span className="text-cyan-400">NEXT</span>
-          </span>
-        </div>
-      ),
     },
     {
       name: "FundYourFX",
@@ -31,19 +22,10 @@ export function PartnersSection() {
       badge: "PRIME PARTNER",
       code: "TEAMPROFITS",
       link: "https://fundyourfx.com/prime-teamprofits",
+      logo: "/images/fundyourfx-logo.jpg",
+      watermark: "/images/fundyourfx-logo2.jpg",
       cardStyle: "border-blue-500/50 bg-gradient-to-b from-[#0a1128] via-[#070b17] to-[#05060b] shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_-5px_rgba(59,130,246,0.5)]",
       btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white hover:brightness-120 shadow-lg shadow-blue-500/25",
-      // Logo corporativo limpio en alta definición
-      logoGraphic: (
-        <div className="flex items-center gap-2.5">
-          <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 font-black text-lg">
-            FX
-          </div>
-          <span className="font-display font-bold tracking-tight text-2xl sm:text-3xl text-white">
-            Fund<span className="text-blue-400 font-extrabold">Your</span>FX
-          </span>
-        </div>
-      ),
     },
   ];
 
@@ -71,13 +53,23 @@ export function PartnersSection() {
           {partners.map((p, idx) => (
             <Reveal key={p.name} delay={idx * 120}>
               <div
-                className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative group ${p.cardStyle}`}
+                className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative overflow-hidden group ${p.cardStyle}`}
               >
-                <div>
+                {/* Marca de agua gigante de fondo con transparencia */}
+                <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.07] group-hover:opacity-[0.11] transition-opacity duration-500">
+                  <img
+                    src={p.watermark}
+                    alt=""
+                    className="w-4/5 h-4/5 object-contain filter grayscale invert"
+                  />
+                </div>
+
+                <div className="relative z-10">
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    {/* Logotipo nítido en alta definición */}
-                    <div className="py-1 flex items-center justify-start overflow-visible">
-                      {p.logoGraphic}
+                    <div className="h-10 sm:h-12 flex items-center justify-start overflow-visible">
+                      <span className="font-display font-black text-xl sm:text-2xl text-white tracking-wider">
+                        {p.name.toUpperCase()}
+                      </span>
                     </div>
                     <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono font-bold text-cyan-300 tracking-wider shrink-0 shadow-md">
                       {p.badge}
@@ -92,9 +84,9 @@ export function PartnersSection() {
                   </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-4 relative z-10">
                   {p.code && (
-                    <div className="flex items-center justify-between p-4 rounded-2xl bg-black/70 border border-white/15 shadow-inner">
+                    <div className="flex items-center justify-between p-4 rounded-2xl bg-black/80 border border-white/15 shadow-inner backdrop-blur-md">
                       <div>
                         <p className="text-[10px] font-mono text-slate-400 tracking-wider">EXCLUSIVE COUPON</p>
                         <p className="font-mono font-bold text-cyan-300 text-base sm:text-lg tracking-widest mt-0.5">
