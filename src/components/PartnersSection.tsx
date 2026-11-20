@@ -10,9 +10,19 @@ export function PartnersSection() {
       badge: "110% REWARD PERK",
       code: "EDUARDO",
       link: "https://fundednext.com/?fpr=profitfx",
-      logo: "/images/fundednext-logo.jpg",
       cardStyle: "border-cyan-500/50 bg-gradient-to-b from-[#0e1628] via-[#080b16] to-[#05060b] shadow-[0_0_40px_-10px_rgba(34,211,238,0.3)] hover:shadow-[0_0_60px_-5px_rgba(34,211,238,0.5)]",
       btnBg: "bg-gradient-to-r from-violet-600 via-cyan-500 to-blue-600 text-white hover:brightness-120 shadow-lg shadow-cyan-500/25",
+      // Logo corporativo limpio en alta definición
+      logoGraphic: (
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-cyan-300 font-black text-lg">
+            N
+          </div>
+          <span className="font-display font-black tracking-wider text-2xl sm:text-3xl text-white">
+            FUNDED<span className="text-cyan-400">NEXT</span>
+          </span>
+        </div>
+      ),
     },
     {
       name: "FundYourFX",
@@ -21,9 +31,19 @@ export function PartnersSection() {
       badge: "PRIME PARTNER",
       code: "TEAMPROFITS",
       link: "https://fundyourfx.com/prime-teamprofits",
-      logo: "/images/fundyourfx-logo.jpg",
       cardStyle: "border-blue-500/50 bg-gradient-to-b from-[#0a1128] via-[#070b17] to-[#05060b] shadow-[0_0_40px_-10px_rgba(59,130,246,0.3)] hover:shadow-[0_0_60px_-5px_rgba(59,130,246,0.5)]",
       btnBg: "bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white hover:brightness-120 shadow-lg shadow-blue-500/25",
+      // Logo corporativo limpio en alta definición
+      logoGraphic: (
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-blue-500/20 border border-blue-400/40 flex items-center justify-center text-blue-400 font-black text-lg">
+            FX
+          </div>
+          <span className="font-display font-bold tracking-tight text-2xl sm:text-3xl text-white">
+            Fund<span className="text-blue-400 font-extrabold">Your</span>FX
+          </span>
+        </div>
+      ),
     },
   ];
 
@@ -54,14 +74,10 @@ export function PartnersSection() {
                 className={`rounded-3xl p-8 h-full flex flex-col justify-between border-2 transition-all duration-300 hover:-translate-y-2 relative group ${p.cardStyle}`}
               >
                 <div>
-                  {/* Cabecera con Logo Original enmarcado de alta gama */}
                   <div className="flex items-center justify-between gap-4 mb-6">
-                    <div className="w-52 sm:w-60 h-16 bg-black/90 border border-white/20 rounded-2xl p-2 flex items-center justify-start overflow-hidden shadow-2xl">
-                      <img
-                        src={p.logo}
-                        alt={`${p.name} Logo`}
-                        className="w-full h-full object-contain object-left scale-125 transform transition-transform duration-300 group-hover:scale-135"
-                      />
+                    {/* Logotipo nítido en alta definición */}
+                    <div className="py-1 flex items-center justify-start overflow-visible">
+                      {p.logoGraphic}
                     </div>
                     <span className="px-3.5 py-1.5 rounded-full bg-white/10 border border-white/20 text-[10px] font-mono font-bold text-cyan-300 tracking-wider shrink-0 shadow-md">
                       {p.badge}
